@@ -14,39 +14,55 @@
 #'   player(c(2,3), c(2, 10)) %>%
 #'   replay()
 replay <- function(data, speed = 1, loop = TRUE) {
+  df1 <- data[[1]]
+  df2 <- data[[2]]
 
-  df <- data[[1]]
-  df2 <- dplyr::tibble(name = cp$name,
-                       at = stringr::str_c(cp$x, cp$y, sep = ","),
-                       state = TRUE,
-                       step = 0)
-  df4 <- df2
+  n <- nrow(df1)
+  nm <- df1[[1]]
+  bf <- df1[[2]]
+  af <- df1[[3]]
 
-  for(i in 1:length(df)) {
-    # check all pieces postion and state
-    # save them as a data frame
-    # add step count to the data frame
-    # add_row for each loop
-    # after the loop, all steps had been documented
-    # the data frame is ready for animation
-    df3 <- df2 %>%
-      dplyr::mutate(state = dplyr::case_when(at == df[[3]][i] ~ FALSE,
-                                             TRUE ~ TRUE),
-                    at = dplyr::case_when(at == df[[2]][i] ~ df[[3]][i],
-                                          TRUE ~ at),
-                    step = i) %>%
-      dplyr::filter(state == TRUE)
+  li <- list()
+  li[[n+1]] <- df2
 
-    df4 <- dplyr::bind_rows(df4, df3)
-    df2 <- df3
+  for(i in n:1) {
+    temp1 <- df1[i,]
+    temp2 <- df2
+    check <- df2[[1]] == nm[i] & df2[[2]] == af[i]
+    if(sum(check) == 1) {
+      df2[[2]][check] <- df1[[2]][i]
+    } else {
+      df2[[2]][max(which(check))] <- df1[[2]][i]
+    }
   }
 
-  df4 <- df4 %>%
+  df2 <- dplyr::mutate(df2, state = TRUE, step = 1)
+  li[[1]] <- df2
+  for(i in 1:n) {
+    bf <- df1[[2]][i]
+    af <- df1[[3]][i]
+
+    df2 <- df2 %>%
+      dplyr::mutate(
+        state = dplyr::case_when(
+          (at == af & state == TRUE) | state == FALSE ~ FALSE,
+          TRUE ~ TRUE),
+        at = dplyr::case_when(
+          at == bf & state == TRUE ~ af,
+          TRUE ~ at),
+      ) %>%
+      dplyr::mutate(step = i + 1)
+
+    li[[i + 1]] <- df2
+  }
+
+  df3 <- dplyr::bind_rows(!!!li) %>%
+    dplyr::filter(state == TRUE) %>%
     tidyr::separate(at, c("x", "y"), sep = ",", convert = TRUE) %>%
     dplyr::mutate(p1 = dplyr::case_when(name %in% ccname ~ TRUE,
-                                 TRUE ~ FALSE))
+                                        TRUE ~ FALSE))
 
-  anim <- ggplot2::ggplot(df4) +
+  anim <- ggplot2::ggplot(df3) +
     ggplot2::geom_segment(data = cl, ggplot2::aes(sx, sy, xend = ex, yend = ey)) +
     ggplot2::geom_point(ggplot2::aes(x, y, color = p1, fill = p1), shape = 21, size = 10) +
     ggplot2::geom_text(ggplot2::aes(x + 0.02, y + 0.05, label = name, color = p1), size = 5) +
@@ -58,6 +74,6 @@ replay <- function(data, speed = 1, loop = TRUE) {
 
   gganimate::animate(anim,
                      renderer = gganimate::gifski_renderer(loop = loop),
-                     nframes = nrow(df) + 1,
-                     duration = (length(df) + 1) / speed)
+                     nframes = n + 1,
+                     duration = (n + 1) / speed)
 }
