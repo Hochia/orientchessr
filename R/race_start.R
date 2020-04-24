@@ -17,7 +17,8 @@ race_start <- function() {
 
   ls <- list(dplyr::tibble(name = character(), before = character(), after = character()),
              dplyr::tibble(name = cp$name,
-                           at = stringr::str_c(cp$x, cp$y, sep = ",")),
+                           at = stringr::str_c(cp$x, cp$y, sep = ","),
+                           state = TRUE),
              gf)
   ls
 }
