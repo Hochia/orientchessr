@@ -21,7 +21,7 @@ Player input when race start
 }
 \examples{
 race_start() \%>\%
-player(c(2,1), c(3, 3)) \%>\%
-player(c(8,8), c(5, 8)) \%>\%
-player(c(2,3), c(2, 10))
+  player(c(2,1), c(3, 3)) \%>\%
+  player(c(8,8), c(5, 8)) \%>\%
+  player(c(2,3), c(2, 10))
 }
