@@ -23,7 +23,7 @@ initiate_chessboard() \%>\%
 
 pname <- c("BING", "ZU", "SHI", "SHI", "XIANG", "PAO")
 px <- c(1, 1, 4, 6, 3, 2)
-py <- c(4, 7, 1, 1, 1, 3)
+py <- c(4, 7,10, 1, 1, 3)
 
 initiate_chessboard() \%>\%
   add_one(pname, px, py) \%>\%
