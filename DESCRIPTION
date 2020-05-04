@@ -1,6 +1,6 @@
 Package: orientchessr
 Title: Use R to Play Chinese Chess
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Ho",
            family = "Chia",

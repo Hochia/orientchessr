@@ -22,6 +22,6 @@ Add one chess to the data and show the graphs
 Input the data one by one, record the input process and each graph
 }
 \examples{
-initiate_chessboard() \%>\%
+puzzle() \%>\%
   add_one_pro("MA", 5, 1)
 }

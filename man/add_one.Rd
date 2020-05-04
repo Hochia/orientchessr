@@ -22,13 +22,13 @@ Add pieces to the data
 Add one or more pieces to the chessboard
 }
 \examples{
-initiate_chessboard() \%>\%
+puzzle() \%>\%
   add_one("MA", 5, 1)
 
 pname <- c("BING", "ZU", "SHI", "SHI", "XIANG", "PAO")
 px <- c(1,1,4,6,3,2)
 py <- c(4,7,1,1,1,3)
 
-initiate_chessboard() \%>\%
+puzzle() \%>\%
   add_one(pname, px, py)
 }

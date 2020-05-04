@@ -10,6 +10,3 @@
 orientchessr uses the pipe function, \code{\%>\%} to turn
 function composition into a series of imperative statements.
 }
-\examples{
-df <- initiate_chessboard() \%>\% add_one("name", 5, 1)
-}

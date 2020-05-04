@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' initiate_chessboard() %>%
+#' puzzle() %>%
 #'   add_one_pro("MA", 5, 1)
 add_one_pro <- function(data, name, x, y) {
 

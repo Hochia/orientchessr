@@ -20,16 +20,11 @@ pname <- c("JIANG", "SHI", "SHI", "MA", "JIU", "che", "che", "TZU", "pau", "pau"
 px <- c( 5, 4, 5, 6, 5, 2, 5, 4, 5, 5, 4)
 py <- c(10,10, 9,10, 8, 4, 2, 3, 3, 4, 1)
 
-initiate_chessboard() \%>\%
+puzzle() \%>\%
   add_one(pname, px, py) \%>\%
   solve()
 
-initiate_chessboard() \%>\%
+puzzle() \%>\%
   add_one_pro(pname, px, py) \%>\%
-  solve()
-
-initiate_chessboard() \%>\%
-  add_one(pname, px, py) \%>\%
-  show_current() \%>\%
   solve()
 }
